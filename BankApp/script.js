@@ -81,7 +81,24 @@ const displayMovements = function (movements) {
   });
 }
 
+const totalBalance = function (movements) {
+  const balance = movements.reduce((accumulator, move) => accumulator + move, 0);
+
+  labelBalance.textContent = balance + '€';
+}
+
+const calDisplaySummary = function (movements) {
+  const income = movements.filter(move => move > 0).reduce((acc, curr) => acc + curr, 0);
+  const expenses = movements.filter(move => move < 0).reduce((acc, curr) => acc + curr, 0);
+  const intrest  = movements.filter(move => move > 0).map(move => move * 1.2/100).reduce((acc, curr) => acc + curr, 0)
+  labelSumIn.textContent = income + '€';
+  labelSumOut.textContent = Math.abs(expenses) + '€'
+  labelSumInterest.textContent = intrest + '€'
+}
+
+totalBalance(account1.movements)
 displayMovements(account1.movements)
+calDisplaySummary(account1.movements)
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
