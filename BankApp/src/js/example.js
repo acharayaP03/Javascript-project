@@ -45,3 +45,15 @@ const totalDepositsInUsd = movements
 .reduce((accumulator, current) => accumulator + current, 0)
 
 console.log(totalDepositsInUsd);
+
+/**
+ * Find methods
+ * 
+ */
+
+const firstWihtdrawal = movements.find(move => move < 0); // return the first element when it finds it 
+
+console.log(firstWihtdrawal)
+const account = accounts.find(acc => acc.owner === 'Jessica Davis')
+
+console.log(account);
