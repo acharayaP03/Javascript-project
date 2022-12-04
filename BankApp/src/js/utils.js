@@ -27,11 +27,11 @@ export const calDisplaySummary = function (account, sumIn, sumOut, sumIntrest) {
   sumIntrest.textContent = intrest + '€'
 } 
 
-export const displayMovements = function (movements, container) {
+export const displayMovements = function (movements, container, sort = false) {
   // if html already contains html then,empty container
   container.innerHTML = '';
-
-  movements.forEach((move, i) => {
+  const moves = sort ? movements.slice().sort((a,b) => a - b) : movements
+  moves.forEach((move, i) => {
     const type = move > 0 ? 'deposit' : 'withdrawal';
 
     const html = `

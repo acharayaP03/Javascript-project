@@ -1,5 +1,5 @@
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-import { accounts } from './script';
+
+import { accounts, movements } from './variables';
 /////////////////////////////////////////////////
 
 /**
@@ -91,3 +91,29 @@ const overallBallance = accounts.map( acc => acc.movements).flat().reduce((acc, 
 const flatMap_overall_balance = accounts.flatMap(acc => acc.movements).reduce((acc, curr) => acc + curr, 0)
 console.log('Flattent movements: ', overallBallance);
 console.log('Use of flat map: ', flatMap_overall_balance);
+
+
+/***
+ * Array Sort method
+ * Please note, this methods actually mutates the array
+ * and if we want to sort num array, we need pass in call back func. that compares array elements
+ */
+
+
+const sortableArrayAsc = movements.sort((a, b) => {
+  if(a > b) return 1 // switch the order
+  if(a< b ) return -1 // keep the order
+})
+
+const sortableArrayAcsSimplified = movements.sort((a, b) => a - b)
+
+const sortableArrayDesc = movements.sort((a, b) => {
+  if(a > b) return -1 // switch the order
+  if(a< b ) return 1 // keep the order
+})
+
+const sortableArrayDescSimplified = movements.sort((a, b) => b - a)
+console.log('Sortable array ascending: ', sortableArrayAsc, sortableArrayAcsSimplified);
+console.log('Sortable array Descending: ', sortableArrayDesc, sortableArrayDescSimplified);
+
+
