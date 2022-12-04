@@ -32,7 +32,7 @@ export const account4 = {
   interestRate: 1,
   pin: 4444,
 };
-
+export const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 export const accounts = [account1, account2, account3, account4];
 
 // Elements
