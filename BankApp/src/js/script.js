@@ -1,7 +1,7 @@
 'use strict';
 
 /////////////////////////////////////////////////
-import { accounts } from './variables';
+import { accounts, btnSort } from './variables';
 import {
   btnLogin,
   containerMovements,
@@ -82,6 +82,20 @@ btnClose.addEventListener('click', (e) =>{
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+})
+
+
+/**
+ * Sort btn
+ */
+// preserve state of sort
+let sorted = false
+btnSort.addEventListener('click', (e) =>{
+
+  console.log('here at sort ');
+  e.preventDefault();
+  displayMovements(currentLoggedInuser.movements, containerMovements, !sorted)
+  sorted = !sorted
 })
 
 
