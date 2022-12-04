@@ -1,4 +1,5 @@
-
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+import { accounts } from './script';
 /////////////////////////////////////////////////
 
 /**
@@ -57,3 +58,36 @@ console.log(firstWihtdrawal)
 const account = accounts.find(acc => acc.owner === 'Jessica Davis')
 
 console.log(account);
+
+/**
+ * flat and flatMap methods.
+ * is commonly used for flattening nested arrays.
+ * flat takes argument where we specify how many level we want to flaten our array, the default is 1
+ */
+
+// flattening array that is one level deep.
+const numArr = [[1,2], 3,4, [5,6], [7,8], 9]
+
+const flattenNumArr = numArr.flat()
+console.log(flattenNumArr);
+
+// flattening array that is two level dep
+const numArrDeep = [[1,2, ['deep', 'array']], 3,4, [5,6], [7,8], 9]
+const flattenArrDeep = numArrDeep.flat(2)
+console.log(flattenArrDeep);
+
+/**
+ * a real use case senario
+ */
+
+const accountsMovements = accounts.map( acc => acc.movements)
+const flattenMovements = accountsMovements.flat()
+const overallBallance = accounts.map( acc => acc.movements).flat().reduce((acc, curr) => acc + curr, 0)
+
+/**
+ * Since we are mapping and flattening, we can use flatMap here.
+ */
+
+const flatMap_overall_balance = accounts.flatMap(acc => acc.movements).reduce((acc, curr) => acc + curr, 0)
+console.log('Flattent movements: ', overallBallance);
+console.log('Use of flat map: ', flatMap_overall_balance);
