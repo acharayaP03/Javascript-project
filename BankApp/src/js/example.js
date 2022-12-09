@@ -132,4 +132,51 @@ labelBalance.addEventListener('click', function(){
   console.log(movementsUI)
 })
 
+/**
+ *
+ * Arrays Methods in practice.
+ */
 
+console.log(`
+    /**
+     *
+     * Arrays Methods in practice.
+     */
+`);
+//1.)
+const totalDeposit = accounts.flatMap( move => move.movements).filter( deposits => deposits > 0 ).reduce((sum, currentValue) => sum + currentValue, 0);
+console.log('Total deposit: ', totalDeposit);
+
+// 2.)
+const totalDepositOver1000 = accounts.flatMap(move => move.movements).reduce((count, currentValue) => currentValue >= 1000 ? ++count : count, 0)
+console.log('Total deposit over 1000: ', totalDepositOver1000);
+
+// 3.) Advanced use case of reduce, create a brand new Object with reduce
+const totalDeposit_Withdrawal = accounts.flatMap(move => move.movements).reduce((total, currentValue) =>{
+
+  //currentValue > 0 ? total.deposits += currentValue : total.withdrawal += currentValue
+  total[currentValue > 0 ? 'deposits' : 'withdrawal'] += currentValue
+  //always return accumulator..
+  return total
+}, { deposits: 0, withdrawal: 0})
+console.log('Calculate total deposit and withdrawal: ', totalDeposit_Withdrawal);
+
+//4.) Capitalizing title with an exception
+
+const convertTitleCasing = function(title) {
+
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title.toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ')
+
+  return capitalize(titleCase)
+}
+
+console.log(convertTitleCasing('this is a title'));
+console.log(convertTitleCasing('another very nice title but not too long'));
+console.log(convertTitleCasing('and here is another long title nice title with EXCEPTION'));
