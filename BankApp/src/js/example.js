@@ -1,5 +1,5 @@
 
-import { accounts, movements } from './variables';
+import { accounts, labelBalance, movements } from './variables';
 /////////////////////////////////////////////////
 
 /**
@@ -115,5 +115,21 @@ const sortableArrayDesc = movements.sort((a, b) => {
 const sortableArrayDescSimplified = movements.sort((a, b) => b - a)
 console.log('Sortable array ascending: ', sortableArrayAsc, sortableArrayAcsSimplified);
 console.log('Sortable array Descending: ', sortableArrayDesc, sortableArrayDescSimplified);
+
+/**
+ * More ways to create and filling arrays.
+ */
+
+const anArray = Array.from({ length: 10}, (currentElement, i) => i + 1)
+console.log('----------------- More ways to create an arrays-------------------');
+console.log(anArray);
+labelBalance.addEventListener('click', function(){
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent?.replace('€', ''))
+  )
+
+  console.log(movementsUI)
+})
 
 
