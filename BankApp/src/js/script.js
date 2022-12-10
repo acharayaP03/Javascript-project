@@ -14,7 +14,7 @@ import {
   labelWelcome,
   containerApp, btnClose, inputClosePin, inputCloseUsername, btnLoan, inputLoanAmount
 } from './variables';
-import { totalBalance, calDisplaySummary, displayMovements } from './utils';
+import { totalBalance, calDisplaySummary, displayMovements, createUsernames } from './utils';
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -22,12 +22,19 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
+
+
+createUsernames(accounts)
+
 let currentLoggedInuser;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
-  currentLoggedInuser = accounts.find(acc => acc.username === inputLoginUsername.value);
+  currentLoggedInuser = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log('Current Logged In User: ', currentLoggedInuser);
   
   if(currentLoggedInuser?.pin === Number(inputLoginPin.value)){
     console.log(currentLoggedInuser.pin);
