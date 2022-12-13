@@ -1,3 +1,7 @@
 dist
 node_modules
-.parcel-cache/
+.parcel-cache/data.mdb
+.parcel-cache/lock.mdb
+.parcel-cache/*
+yarn.lock
+.idea/

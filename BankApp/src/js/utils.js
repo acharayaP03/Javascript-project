@@ -7,7 +7,7 @@
 export const totalBalance = function (movements, handle) {
   const balance = movements.reduce((accumulator, move) => accumulator + move, 0);
 
-  handle.textContent = balance + '€';
+  handle.textContent = '$'+Number(balance).toFixed(2);
 }
 
 /**
@@ -22,9 +22,9 @@ export const calDisplaySummary = function (account, sumIn, sumOut, sumIntrest) {
   const expenses = account.filter(move => move < 0).reduce((acc, curr) => acc + curr, 0);
   const intrest  = account.filter(move => move > 0).map(move => move * 1.2/100).reduce((acc, curr) => acc + curr, 0)
 
-  sumIn.textContent = income + '€';
-  sumOut.textContent = Math.abs(expenses) + '€'
-  sumIntrest.textContent = intrest + '€'
+  sumIn.textContent = '$' + Number(income).toFixed(2);
+  sumOut.textContent = '$' +Number(expenses).toFixed(2)
+  sumIntrest.textContent = '$' + Number(intrest).toFixed(2)
 } 
 
 export const displayMovements = function (movements, container, sort = false) {
@@ -38,7 +38,7 @@ export const displayMovements = function (movements, container, sort = false) {
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
         <div class="movements__date">3 days ago</div>
-        <div class="movements__value">${move}</div>
+        <div class="movements__value">${Number(move).toFixed(2)}</div>
       </div>
     `;
     
