@@ -6,7 +6,7 @@
 
 // Data
 
-const account1 = {
+export const account1 = {
   owner: 'Jonas Schmedtmann',
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
@@ -26,7 +26,7 @@ const account1 = {
   locale: 'pt-PT', // de-DE
 };
 
-const account2 = {
+export const account2 = {
   owner: 'Jessica Davis',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,

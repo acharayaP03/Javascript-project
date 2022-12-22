@@ -1,8 +1,8 @@
 'use strict';
 
 /////////////////////////////////////////////////
-import { accounts, btnSort } from './variables';
 import {
+  account1, accounts, btnSort, btnTransfer, inputTransferAmount, labelDate, movements,
   btnLogin,
   containerMovements,
   labelBalance,
@@ -12,9 +12,9 @@ import {
   inputLoginUsername,
   inputLoginPin,
   labelWelcome,
-  containerApp, btnClose, inputClosePin, inputCloseUsername, btnLoan, inputLoanAmount
+  containerApp, btnClose, inputClosePin, inputCloseUsername, btnLoan, inputLoanAmount, inputTransferTo
 } from './variables';
-import { totalBalance, calDisplaySummary, displayMovements, createUsernames } from './utils';
+import { totalBalance, calDisplaySummary, displayMovements, createUsernames, displayDate } from './utils';
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -27,6 +27,12 @@ const currencies = new Map([
 createUsernames(accounts)
 
 let currentLoggedInuser;
+
+/**
+ * fix date for the current balance
+ */
+
+
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
@@ -42,13 +48,15 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back, ${currentLoggedInuser.owner.split(' ').at(0)}`;
     containerApp.style.opacity = 100;
 
+    labelDate.textContent =  displayDate()
+
     // clear the input fields 
     inputLoginUsername.value = inputLoginPin.value = '';
     // let's input field to loose its focus.
     inputLoginPin.blur();
 
     // show logged in user movements.
-    displayMovements(currentLoggedInuser.movements, containerMovements);
+    displayMovements(currentLoggedInuser, containerMovements);
     // show logged in user balance
     totalBalance(currentLoggedInuser.movements, labelBalance);
     // show logged in user summary..
@@ -57,6 +65,29 @@ btnLogin.addEventListener('click', function (e) {
     console.log('Wrong pin');
   }
 });
+
+/**
+ * Transfer
+ */
+
+btnTransfer.addEventListener('click', (e) =>{
+  e.preventDefault();
+
+  const amount = +inputTransferAmount.value;
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if(amount > 0 && receiverAcc && currentLoggedInuser.balance >= amount && receiverAcc?.username !== currentLoggedInuser.username){
+    currentLoggedInuser.movements.push(-amount);
+    receiverAcc.movements.push(amount)
+
+    currentLoggedInuser.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+    displayMovements(currentLoggedInuser, containerMovements);
+  }
+
+})
 
 
 btnLoan.addEventListener('click', (e) =>{
@@ -67,8 +98,8 @@ btnLoan.addEventListener('click', (e) =>{
   if(amount > 0 && currentLoggedInuser.movements.some(move => move >= amount * 0.1)){
     currentLoggedInuser.movements.push(amount);
   }
-  console.log(currentLoggedInuser.movements);
-  displayMovements(currentLoggedInuser.movements, containerMovements);
+  currentLoggedInuser.movementsDates.push(new Date().toISOString());
+  displayMovements(currentLoggedInuser, containerMovements);
   inputLoanAmount.value = ''
 })
 
