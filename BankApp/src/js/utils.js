@@ -19,15 +19,23 @@ export  const displayDate = (movementsDate, localDate) =>{
     return new Intl.DateTimeFormat(localDate).format(movementsDate)
 
 }
+
+
+const formatCurrency = function (value, locale, currency){
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency
+  }).format(value);
+}
 /**
  * 
  * @param {*} movements array
  * @param {*} handle html element
  */
-export const totalBalance = function (movements, handle) {
-  const balance = movements.reduce((accumulator, move) => accumulator + move, 0);
+export const totalBalance = function (account, handle) {
+  const balance = account.movements.reduce((accumulator, move) => accumulator + move, 0);
 
-  handle.textContent = '$'+Number(balance).toFixed(2);
+  handle.textContent = formatCurrency(balance, account.locale, account.currency)
 }
 
 /**
@@ -38,14 +46,16 @@ export const totalBalance = function (movements, handle) {
  * @param {*} sumIntrest 
  */
 export const calDisplaySummary = function (account, sumIn, sumOut, sumInterest) {
-  const income = account.filter(move => move > 0).reduce((acc, curr) => acc + curr, 0);
-  const expenses = account.filter(move => move < 0).reduce((acc, curr) => acc + curr, 0);
-  const interest  = account.filter(move => move > 0).map(move => move * 1.2/100).reduce((acc, curr) => acc + curr, 0)
+  const income = account.movements.filter(move => move > 0).reduce((acc, curr) => acc + curr, 0);
+  const expenses = account.movements.filter(move => move < 0).reduce((acc, curr) => acc + curr, 0);
+  const interest  = account.movements.filter(move => move > 0).map(move => move * 1.2/100).reduce((acc, curr) => acc + curr, 0)
 
-  sumIn.textContent = '$' + Number(income).toFixed(2);
-  sumOut.textContent = '$' +Number(Math.abs(expenses)).toFixed(2)
-  sumInterest.textContent = '$' + Number(interest).toFixed(2)
-} 
+  console.log('calcDisplaySummary: ', account)
+
+  sumIn.textContent = formatCurrency(income, account.locale, account.currency)
+  sumOut.textContent = formatCurrency(expenses, account.locale, account.currency)
+  sumInterest.textContent = formatCurrency(interest, account.locale, account.currency)
+}
 
 export const displayMovements = function (account, container, sort = false) {
   // if html already contains html then,empty container
@@ -59,11 +69,14 @@ export const displayMovements = function (account, container, sort = false) {
     const movementsDate = new Date(account.movementsDates[i])
     const date = displayDate(movementsDate, account.locale)
 
+    //formating movements
+    const formattedMovements = formatCurrency(move, move.locale, account.currency)
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
         <div class="movements__date">${date}</div>
-        <div class="movements__value">${Number(move).toFixed(2)}</div>
+        <div class="movements__value">${formattedMovements}</div>
       </div>
     `;
     

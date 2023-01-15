@@ -68,9 +68,9 @@ btnLogin.addEventListener('click', function (e) {
     // show logged in user movements.
     displayMovements(currentLoggedInuser, containerMovements);
     // show logged in user balance
-    totalBalance(currentLoggedInuser.movements, labelBalance);
+    totalBalance(currentLoggedInuser, labelBalance);
     // show logged in user summary..
-    calDisplaySummary(currentLoggedInuser.movements, labelSumIn, labelSumOut, labelSumInterest)
+    calDisplaySummary(currentLoggedInuser, labelSumIn, labelSumOut, labelSumInterest)
   }else{
     console.log('Wrong pin');
   }
