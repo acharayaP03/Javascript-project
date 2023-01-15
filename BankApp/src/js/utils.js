@@ -12,8 +12,8 @@ export  const displayDate = (movementsDate) =>{
   const day = `${now.getDate()}`.padStart(2, 0); // this method will padd the string if its only one digit.
   const month = `${now.getMonth() +  1}`.padStart(2, 0);
   const year = now.getFullYear()
-  const hour = now.getHours();
-  const minutes = now.getMinutes();
+  const hour = `${now.getHours()}`.padStart(2,0);
+  const minutes = `${now.getMinutes()}`.padStart(2, 0);
 
   return `${day}/${month}/${year}, ${hour}:${minutes}`
 }
