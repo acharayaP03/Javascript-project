@@ -8,14 +8,23 @@ import { labelDate } from './variables';
 export  const displayDate = (movementsDate) =>{
 
   const now = movementsDate !== undefined ? new Date(movementsDate) : new Date();
+  const clacDaysPassed = (dateToday , previousDate) => Math.round(Math.abs(dateToday - previousDate) / (1000 * 60 * 60 * 24));
 
-  const day = `${now.getDate()}`.padStart(2, 0); // this method will padd the string if its only one digit.
-  const month = `${now.getMonth() +  1}`.padStart(2, 0);
-  const year = now.getFullYear()
-  const hour = `${now.getHours()}`.padStart(2,0);
-  const minutes = `${now.getMinutes()}`.padStart(2, 0);
+  const daysPassed = clacDaysPassed(new Date(), now)
 
-  return `${day}/${month}/${year}, ${hour}:${minutes}`
+    if(daysPassed === 0) return 'Today'
+    if(daysPassed === 1) return 'Yesterday'
+    if(daysPassed <= 7) return `${daysPassed} days`
+
+    const day = `${now.getDate()}`.padStart(2, 0); // this method will padd the string if its only one digit.
+    const month = `${now.getMonth() +  1}`.padStart(2, 0);
+    const year = now.getFullYear()
+    const hour = `${now.getHours()}`.padStart(2,0);
+    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    return `${day}/${month}/${year}, ${hour}:${minutes}`
+
+
+
 }
 /**
  * 
