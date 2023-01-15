@@ -14,7 +14,7 @@ import {
   labelWelcome,
   containerApp, btnClose, inputClosePin, inputCloseUsername, btnLoan, inputLoanAmount, inputTransferTo
 } from './variables';
-import { totalBalance, calDisplaySummary, displayMovements, createUsernames, displayDate } from './utils';
+import {totalBalance, calDisplaySummary, displayMovements, createUsernames, displayDate, starLoginTimer} from './utils';
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -26,7 +26,7 @@ const currencies = new Map([
 
 createUsernames(accounts)
 
- let currentLoggedInuser;
+ let currentLoggedInuser, timer;
 
 
 /**
@@ -44,7 +44,8 @@ btnLogin.addEventListener('click', function (e) {
   console.log('Current Logged In User: ', currentLoggedInuser);
   
   if(currentLoggedInuser?.pin === Number(inputLoginPin.value)){
-    console.log(currentLoggedInuser.pin);
+
+    starLoginTimer();
 
     labelWelcome.textContent = `Welcome back, ${currentLoggedInuser.owner.split(' ').at(0)}`;
     containerApp.style.opacity = 100;
@@ -71,6 +72,14 @@ btnLogin.addEventListener('click', function (e) {
     totalBalance(currentLoggedInuser, labelBalance);
     // show logged in user summary..
     calDisplaySummary(currentLoggedInuser, labelSumIn, labelSumOut, labelSumInterest)
+
+    /**
+     * here this timer will help us to create a timer variable, which we can remove if there is already timer started on
+     * memory. this actually happens when more than one user is logged in to app.
+     */
+    if(timer){
+      timer = clearInterval(timer)
+    }
   }else{
     console.log('Wrong pin');
   }
@@ -95,6 +104,12 @@ btnTransfer.addEventListener('click', (e) =>{
     currentLoggedInuser.movementsDates.push(new Date().toISOString());
     receiverAcc.movementsDates.push(new Date().toISOString());
     displayMovements(currentLoggedInuser, containerMovements);
+
+    /**
+     * clear previous, and restart the timer.
+     */
+    clearInterval(timer)
+    timer = starLoginTimer(timer)
   }
 
 })
@@ -105,12 +120,20 @@ btnLoan.addEventListener('click', (e) =>{
 
   const amount = Number(inputLoanAmount.value);
 
-  if(amount > 0 && currentLoggedInuser.movements.some(move => move >= amount * 0.1)){
-    currentLoggedInuser.movements.push(amount);
-  }
-  currentLoggedInuser.movementsDates.push(new Date().toISOString());
-  displayMovements(currentLoggedInuser, containerMovements);
+  setTimeout(() =>{
+    if(amount > 0 && currentLoggedInuser.movements.some(move => move >= amount * 0.1)){
+      currentLoggedInuser.movements.push(amount);
+    }
+    currentLoggedInuser.movementsDates.push(new Date().toISOString());
+    displayMovements(currentLoggedInuser, containerMovements);
+    totalBalance(currentLoggedInuser, labelBalance);
+  }, 5000)
   inputLoanAmount.value = ''
+  /**
+   * clear previous, and restart the timer.
+   */
+  clearInterval(timer)
+  timer = starLoginTimer(timer)
 })
 
 /**
@@ -130,6 +153,10 @@ btnClose.addEventListener('click', (e) =>{
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+  /**
+   * clear previous, and restart the timer.
+   */
+  clearInterval(timer)
 })
 
 
@@ -140,10 +167,13 @@ btnClose.addEventListener('click', (e) =>{
 let sorted = false
 btnSort.addEventListener('click', (e) =>{
 
-  console.log('here at sort ');
   e.preventDefault();
   displayMovements(currentLoggedInuser.movements, containerMovements, !sorted)
   sorted = !sorted
+
+  /**
+   * clear previous, and restart the timer.
+   */
 })
 
 
