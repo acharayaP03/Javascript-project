@@ -43,6 +43,21 @@ console.log('Numeric Separator: ', diameter);
  * the max safe integer is stored here in Number.MAX_SAFE_INTEGER
  */
 
-console.log( 2 ** 53 -1) // out puts the max safe number
-console.log(Number.MAX_SAFE_INTEGER);
-console.log('BigInt representation: ', 9749527498572345274875274357234752345n);
+// console.log( 2 ** 53 -1) // out puts the max safe number
+// console.log(Number.MAX_SAFE_INTEGER);
+// console.log('BigInt representation: ', 9749527498572345274875274357234752345n);
+
+
+/**
+ * Intl api to manipulate date and numbers
+ */
+
+const number = 3884764.23;
+
+const options = {
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'EUR'
+}
+
+console.log('US     ', new Intl.NumberFormat('en-US', options).format(number))
