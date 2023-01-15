@@ -1,4 +1,4 @@
-import { labelDate } from './variables';
+import {containerApp, labelDate, labelTimer, labelWelcome} from './variables';
 
 /**
  * Calculate date
@@ -20,12 +20,51 @@ export  const displayDate = (movementsDate, localDate) =>{
 
 }
 
+/**
+ * Format currency with Intl Api
+ * @param value
+ * @param locale
+ * @param currency
+ * @returns {string}
+ */
 
 const formatCurrency = function (value, locale, currency){
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currency
   }).format(value);
+}
+
+/**
+ * Timer
+ */
+
+export const starLoginTimer = function (){
+  // Set Time to 5 mins
+  let time = 300;
+  const tick = function () {
+    const minutes = String(Math.trunc(time / 60)).padStart(2, '0');
+    const seconds =  String(time % 60 ).padStart(2, '0');
+
+    labelTimer.textContent = `${minutes}:${seconds}`
+
+    //if the time is 0, logout the user;
+
+    if(time === 0){
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0
+    }
+    time--
+  }
+  /**
+   * calling this setInterval callback will actually resolves issue of timer starting after one second.
+   * so the trick is to call the callback then call timer into the clear interval.
+   * also decrementing timer after if will resolve issue of logging out app before timer hits 0
+   */
+  tick()
+  const timer = setInterval(tick, 1000)
+  return timer;
 }
 /**
  * 
