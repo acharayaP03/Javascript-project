@@ -26,7 +26,8 @@ const currencies = new Map([
 
 createUsernames(accounts)
 
-let currentLoggedInuser;
+ let currentLoggedInuser;
+
 
 /**
  * fix date for the current balance
@@ -48,7 +49,16 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back, ${currentLoggedInuser.owner.split(' ').at(0)}`;
     containerApp.style.opacity = 100;
 
-    labelDate.textContent =  displayDate()
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      //weekday: 'long'
+    }
+    const localeDate = navigator.language;
+    labelDate.textContent = new Intl.DateTimeFormat(currentLoggedInuser.locale, options).format(new Date())
 
     // clear the input fields 
     inputLoginUsername.value = inputLoginPin.value = '';

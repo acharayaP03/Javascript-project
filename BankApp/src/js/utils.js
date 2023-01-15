@@ -5,25 +5,18 @@ import { labelDate } from './variables';
  */
 
 
-export  const displayDate = (movementsDate) =>{
+export  const displayDate = (movementsDate, localDate) =>{
 
   const now = movementsDate !== undefined ? new Date(movementsDate) : new Date();
   const clacDaysPassed = (dateToday , previousDate) => Math.round(Math.abs(dateToday - previousDate) / (1000 * 60 * 60 * 24));
 
-  const daysPassed = clacDaysPassed(new Date(), now)
+  const daysPassed = clacDaysPassed(new Date(), movementsDate)
 
     if(daysPassed === 0) return 'Today'
     if(daysPassed === 1) return 'Yesterday'
     if(daysPassed <= 7) return `${daysPassed} days`
 
-    const day = `${now.getDate()}`.padStart(2, 0); // this method will padd the string if its only one digit.
-    const month = `${now.getMonth() +  1}`.padStart(2, 0);
-    const year = now.getFullYear()
-    const hour = `${now.getHours()}`.padStart(2,0);
-    const minutes = `${now.getMinutes()}`.padStart(2, 0);
-    return `${day}/${month}/${year}, ${hour}:${minutes}`
-
-
+    return new Intl.DateTimeFormat(localDate).format(movementsDate)
 
 }
 /**
@@ -63,7 +56,9 @@ export const displayMovements = function (account, container, sort = false) {
     const type = move > 0 ? 'deposit' : 'withdrawal';
 
     //display movements date
-    const date = displayDate(account.movementsDates[i])
+    const movementsDate = new Date(account.movementsDates[i])
+    const date = displayDate(movementsDate, account.locale)
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
