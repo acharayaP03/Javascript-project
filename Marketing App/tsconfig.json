@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ESNext",
+        "rootDir": "src",
+        "outDir": "dist",
+        "skipLibCheck": true,
+        "baseUrl": "src",
+        "noEmitOnError": true,
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

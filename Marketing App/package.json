@@ -1,0 +1,12 @@
+{
+  "name": "marketingapp",
+  "version": "1.0.0",
+  "description": "project with typescript",
+  "main": "index.js",
+  "repository": "https://github.com/acharayaP03/Javascript-project/tree/master/Marketing%20App",
+  "author": "Trishten Ac",
+  "license": "MIT",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
