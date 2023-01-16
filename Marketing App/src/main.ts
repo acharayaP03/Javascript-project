@@ -4,6 +4,7 @@
 // Modal window
 
 import { modal, overlay, btnsOpenModal, btnCloseModal } from "./variables.js";
+import {deleteCookie, displayCookie} from "./load-cookie";
 
 const openModal = function (e: Event) {
   e.preventDefault()
@@ -29,3 +30,6 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+displayCookie();
+deleteCookie()
