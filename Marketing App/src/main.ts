@@ -3,8 +3,9 @@
 ///////////////////////////////////////
 // Modal window
 
-import { modal, overlay, btnsOpenModal, btnCloseModal } from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, btnScrollTo, section1} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
+import {smoothScrolling, smoothScrollingModernWay} from "./smoothScrolling";
 
 const openModal = function (e: Event) {
   e.preventDefault()
@@ -33,3 +34,6 @@ document.addEventListener('keydown', function (e) {
 
 displayCookie();
 deleteCookie()
+//smoothScrolling(btnScrollTo, section1)
+
+smoothScrollingModernWay(btnScrollTo, section1)
