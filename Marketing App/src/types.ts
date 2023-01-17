@@ -1,0 +1,1 @@
+export type HTMLElemetEvent<T extends HTMLElement> = Event & { target: T }
