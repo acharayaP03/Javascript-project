@@ -7,3 +7,7 @@ export const btnsOpenModal = document.querySelectorAll('.btn--show-modal') as No
 export const btnScrollTo = document.querySelector('.btn--scroll-to') as HTMLButtonElement;
 export const  section1 = document.querySelector('#section--1') as HTMLElement
 export const navLinks = document.querySelectorAll('.nav__link') as NodeListOf<HTMLAnchorElement>
+
+export const tabs = document.querySelectorAll('.operations__tab') as NodeList;
+export const tabsContainer = document.querySelector('.operations__tab-container') as HTMLElement;
+export const tabsContent = document.querySelectorAll('.operations__content') as NodeList

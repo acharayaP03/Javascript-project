@@ -3,8 +3,9 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
+import {Button} from "./types";
 
 
 
@@ -79,4 +80,28 @@ parentNavLink.addEventListener('click', (e) => {
     scrollSections!.scrollIntoView({ behavior: 'smooth'})
 
   }
+})
+
+/**
+ * Dom Traversing: one very important method we have used here is the <element>.closest() which allows to target any
+ * children element and do event handeling and many more
+ */
+
+tabsContainer.addEventListener('click', (e: Event)=>{
+  e.preventDefault();
+
+  const target = e.target as HTMLElement;
+  const clickedTab = target.closest('.operations__tab');
+
+  //if tab is already active, when we click it will return null,
+  //so we will prevent it by null guard
+  if(!clickedTab) return
+
+  tabs.forEach((tab) => (<Element>tab).classList.remove('operations__tab--active'))
+  tabsContent.forEach(content => (<Element>content).classList.remove('operations__content--active'))
+  // 1.) activate tab buttons
+  clickedTab.classList.add('operations__tab--active')
+  // 2.) activate tab content after tab is activated.
+  // @ts-ignore
+  document.querySelector(`.operations__content--${clickedTab.dataset.tab}`).classList.add('operations__content--active')
 })
