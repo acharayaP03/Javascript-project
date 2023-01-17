@@ -3,7 +3,7 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, btnScrollTo, section1} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, btnScrollTo, section1, navLinks} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {smoothScrolling, smoothScrollingModernWay} from "./smoothScrolling";
 
@@ -35,5 +35,23 @@ document.addEventListener('keydown', function (e) {
 displayCookie();
 deleteCookie()
 //smoothScrolling(btnScrollTo, section1)
+smoothScrollingModernWay(btnScrollTo, section1);
 
-smoothScrollingModernWay(btnScrollTo, section1)
+/**
+ * attaching smooth scrolling to the navigation
+ *
+ * the idea behind this is, we wil target all the nav links where it will have href attributes consist of
+ * id of the sections. we can easily achieve this by calling getAttribute on nav link.
+ */
+navLinks.forEach((el) =>{
+  el.addEventListener('click', (event: Event)=>{
+    event.preventDefault();
+
+    const sectionId = el.getAttribute('href');
+
+    const scrollSections = document.querySelector(sectionId!)
+
+    scrollSections!.scrollIntoView({ behavior: 'smooth'})
+
+  })
+})

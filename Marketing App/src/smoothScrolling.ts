@@ -9,9 +9,10 @@
  */
 
 export const smoothScrolling = function (scrollBtn: HTMLButtonElement, sectionElement: HTMLElement){
-    scrollBtn.addEventListener('click', ()=>{
+    scrollBtn.addEventListener('click', (e: MouseEvent)=>{
         const section1Cords = sectionElement.getBoundingClientRect();
 
+        console.log(e.target)
         window.scrollTo({
             behavior: 'smooth',
             left: section1Cords.left + window.pageXOffset,
