@@ -1,4 +1,4 @@
-const header = document.querySelector('.header') as HTMLElement;
+const header = document.querySelector('.header') as HTMLDivElement;
 // Creating and inserting elements
 const message = document.createElement('div') as HTMLDivElement;
 
@@ -17,3 +17,8 @@ export const deleteCookie = function (){
             message!.parentElement!.removeChild(message)
         });
 }
+
+const allButtonsWithTagName = document.getElementsByTagName('button') as HTMLCollection;
+const allButtonsWithClassName = document.getElementsByClassName('btn') as HTMLCollection
+console.log('All buttons with tag name: ',allButtonsWithTagName);
+console.log('All buttons with Class name: ', allButtonsWithClassName)
