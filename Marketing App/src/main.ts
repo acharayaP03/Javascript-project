@@ -3,9 +3,10 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {Button} from "./types";
+import {handleHover} from "./utils";
 
 
 
@@ -105,3 +106,21 @@ tabsContainer.addEventListener('click', (e: Event)=>{
   // @ts-ignore
   document.querySelector(`.operations__content--${clickedTab.dataset.tab}`).classList.add('operations__content--active')
 })
+
+/**
+ * Passing arguments to Event handlers.
+ * We will apply this technique to our navigation,
+ * the idea is, when we hover over any nav items, only the nav item that the mouse pointer is on, will have opacity
+ * of 1, others will receive 0.5.
+ *
+ * for this menu fade animation, we wil utilize mouseout and mouseover listeners since the event needs to bubble up.
+ * since event won't bubble up for mouseenter, we cannot use it for this purpose.
+ *
+ * the bind method, passes the opacity argument via this key word. since we are calling handleHover as a listener's
+ * call back function, the 'e' object is automatically passed to it,
+ * */
+
+nav.addEventListener('mouseover', handleHover.bind('0.5'))
+
+nav.addEventListener('mouseout', handleHover.bind('1'))
+

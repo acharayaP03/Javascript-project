@@ -11,3 +11,4 @@ export const navLinks = document.querySelectorAll('.nav__link') as NodeListOf<HT
 export const tabs = document.querySelectorAll('.operations__tab') as NodeList;
 export const tabsContainer = document.querySelector('.operations__tab-container') as HTMLElement;
 export const tabsContent = document.querySelectorAll('.operations__content') as NodeList
+export const nav = document.querySelector('.nav') as HTMLElement;
