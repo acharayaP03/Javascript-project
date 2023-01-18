@@ -6,6 +6,7 @@
 import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {Button} from "./types";
+import {handleHover} from "./utils";
 
 
 
@@ -113,48 +114,13 @@ tabsContainer.addEventListener('click', (e: Event)=>{
  * of 1, others will receive 0.5.
  *
  * for this menu fade animation, we wil utilize mouseout and mouseover listeners since the event needs to bubble up.
- * since event wont't bubble up for mouseenter, we cannot use it for this purpose.
+ * since event won't bubble up for mouseenter, we cannot use it for this purpose.
+ *
+ * the bind method, passes the opacity argument via this key word. since we are calling handleHover as a listener's
+ * call back function, the 'e' object is automatically passed to it,
  * */
 
-nav.addEventListener('mouseover', function (e){
- const target = e.target as HTMLElement;
-  /**
-   * here are traversing up to the parent so that we can find child element easily.
-   */
+nav.addEventListener('mouseover', handleHover.bind('0.5'))
 
-  /**
-   * properly type annotationd ot siblings element,
-   * if we dont convert the node list type to array, style property will not be available.
-   */
- const siblings: HTMLElement[] = Array.from((target.closest('.nav') as HTMLElement).querySelectorAll('.nav__link'));
-
- const logo = (target.closest('.nav') as HTMLElement).querySelector('img') as HTMLImageElement;
- if(target.classList.contains('nav__link')){
-  siblings.forEach(el => {
-    if(el !== target) el.style.opacity = '0.5'
-  })
- }
- logo.style.opacity = '0.5'
-})
-
-nav.addEventListener('mouseout', function (e){
-  const target = e.target as HTMLElement;
-  /**
-   * here are traversing up to the parent so that we can find child element easily.
-   */
-
-  /**
-   * properly type annotationd ot siblings element,
-   * if we dont convert the node list type to array, style property will not be available.
-   */
-  const siblings: HTMLElement[] = Array.from((target.closest('.nav') as HTMLElement).querySelectorAll('.nav__link'));
-
-  const logo = (target.closest('.nav') as HTMLElement).querySelector('img') as HTMLImageElement;
-  if(target.classList.contains('nav__link')){
-    siblings.forEach(el => {
-      if(el !== target) el.style.opacity = '1'
-    })
-  }
-  logo.style.opacity = '1'
-})
+nav.addEventListener('mouseout', handleHover.bind('1'))
 
