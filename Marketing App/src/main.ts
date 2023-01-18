@@ -3,7 +3,7 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {Button} from "./types";
 
@@ -105,3 +105,56 @@ tabsContainer.addEventListener('click', (e: Event)=>{
   // @ts-ignore
   document.querySelector(`.operations__content--${clickedTab.dataset.tab}`).classList.add('operations__content--active')
 })
+
+/**
+ * Passing arguments to Event handlers.
+ * We will apply this technique to our navigation,
+ * the idea is, when we hover over any nav items, only the nav item that the mouse pointer is on, will have opacity
+ * of 1, others will receive 0.5.
+ *
+ * for this menu fade animation, we wil utilize mouseout and mouseover listeners since the event needs to bubble up.
+ * since event wont't bubble up for mouseenter, we cannot use it for this purpose.
+ * */
+
+nav.addEventListener('mouseover', function (e){
+ const target = e.target as HTMLElement;
+  /**
+   * here are traversing up to the parent so that we can find child element easily.
+   */
+
+  /**
+   * properly type annotationd ot siblings element,
+   * if we dont convert the node list type to array, style property will not be available.
+   */
+ const siblings: HTMLElement[] = Array.from((target.closest('.nav') as HTMLElement).querySelectorAll('.nav__link'));
+
+ const logo = (target.closest('.nav') as HTMLElement).querySelector('img') as HTMLImageElement;
+ if(target.classList.contains('nav__link')){
+  siblings.forEach(el => {
+    if(el !== target) el.style.opacity = '0.5'
+  })
+ }
+ logo.style.opacity = '0.5'
+})
+
+nav.addEventListener('mouseout', function (e){
+  const target = e.target as HTMLElement;
+  /**
+   * here are traversing up to the parent so that we can find child element easily.
+   */
+
+  /**
+   * properly type annotationd ot siblings element,
+   * if we dont convert the node list type to array, style property will not be available.
+   */
+  const siblings: HTMLElement[] = Array.from((target.closest('.nav') as HTMLElement).querySelectorAll('.nav__link'));
+
+  const logo = (target.closest('.nav') as HTMLElement).querySelector('img') as HTMLImageElement;
+  if(target.classList.contains('nav__link')){
+    siblings.forEach(el => {
+      if(el !== target) el.style.opacity = '1'
+    })
+  }
+  logo.style.opacity = '1'
+})
+
