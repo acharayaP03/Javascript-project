@@ -131,12 +131,27 @@ nav.addEventListener('mouseout', handleHover.bind('1'))
  * the better way to handle this situation is use onserver api.
  */
 
-const initialCords = section1.getBoundingClientRect();
-window.addEventListener('scroll', function (){
-  if(window.scrollY > initialCords.top){
-    nav.classList.add('sticky')
-  }else {
-    nav.classList.remove('sticky')
-  }
-})
+// const initialCords = section1.getBoundingClientRect();
+// window.addEventListener('scroll', function (){
+//   if(window.scrollY > initialCords.top){
+//     nav.classList.add('sticky')
+//   }else {
+//     nav.classList.remove('sticky')
+//   }
+// })
 
+const header = document.querySelector('.header') as HTMLElement;
+const stickyNavigation = function(entries){
+  const [entry] = entries;
+  if(!entry.isIntersecting) nav.classList.add('sticky')
+  else nav.classList.remove('sticky')
+}
+// @ts-ignore
+// @ts-ignore
+const headerObserver = new IntersectionObserver((stickyNavigation, {
+  root: null,
+  threshold: 0,
+  rootMargin: '-90px'
+}))
+
+headerObserver.observe(header)
