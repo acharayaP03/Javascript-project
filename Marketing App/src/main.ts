@@ -3,9 +3,8 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav, section1} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
-import {Button} from "./types";
 import {handleHover} from "./utils";
 
 
@@ -123,4 +122,21 @@ tabsContainer.addEventListener('click', (e: Event)=>{
 nav.addEventListener('mouseover', handleHover.bind('0.5'))
 
 nav.addEventListener('mouseout', handleHover.bind('1'))
+
+/**
+ * Sticky Navigations:
+ * although, this seems to work, it is a bit of problematic due to performance, since scroll event will be triggered
+ * every time user scrolls.
+ *
+ * the better way to handle this situation is use onserver api.
+ */
+
+const initialCords = section1.getBoundingClientRect();
+window.addEventListener('scroll', function (){
+  if(window.scrollY > initialCords.top){
+    nav.classList.add('sticky')
+  }else {
+    nav.classList.remove('sticky')
+  }
+})
 
