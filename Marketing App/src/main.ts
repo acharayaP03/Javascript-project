@@ -3,7 +3,7 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav, section1} from "./variables.js";
+import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
 
@@ -128,7 +128,9 @@ nav.addEventListener('mouseout', handleHover.bind('1'))
  * although, this seems to work, it is a bit of problematic due to performance, since scroll event will be triggered
  * every time user scrolls.
  *
- * the better way to handle this situation is use onserver api.
+ * the better way to handle this situation is use Intersection Observer api.
+ * a very good explanation is provided with infite scroll at here
+ * https://wesbos.com/javascript/06-serious-practice-exercises/scroll-events-and-intersection-observer
  */
 
 // const initialCords = section1.getBoundingClientRect();
@@ -141,17 +143,19 @@ nav.addEventListener('mouseout', handleHover.bind('1'))
 // })
 
 const header = document.querySelector('.header') as HTMLElement;
+// @ts-ignore
 const stickyNavigation = function(entries){
   const [entry] = entries;
   if(!entry.isIntersecting) nav.classList.add('sticky')
   else nav.classList.remove('sticky')
 }
 // @ts-ignore
-// @ts-ignore
-const headerObserver = new IntersectionObserver((stickyNavigation, {
+
+const headerObserver = new IntersectionObserver(stickyNavigation, {
+  // @ts-ignore
   root: null,
   threshold: 0,
   rootMargin: '-90px'
-}))
+})
 
 headerObserver.observe(header)
