@@ -664,11 +664,15 @@ h4 {
 /* COOKIE MESSAGE */
 .cookie-message {
   display: flex;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  background-color: white;
+  padding: 2.5rem;
   color: #bbb;
   font-size: 1.5rem;
   font-weight: 400;
+  background: #37383d;
 }
