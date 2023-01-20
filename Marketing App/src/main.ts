@@ -3,7 +3,17 @@
 ///////////////////////////////////////
 // Modal window
 
-import {modal, overlay, btnsOpenModal, btnCloseModal, tabs, tabsContent, tabsContainer, nav} from "./variables.js";
+import {
+  modal,
+  overlay,
+  btnsOpenModal,
+  btnCloseModal,
+  tabs,
+  tabsContent,
+  tabsContainer,
+  nav,
+  allSections
+} from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
 
@@ -160,3 +170,28 @@ const headerObserver = new IntersectionObserver(stickyNavigation, {
 })
 
 headerObserver.observe(header)
+
+/**
+ * Reveal sections with Intersection Observer api
+ */
+
+// @ts-ignore
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entries)
+  if(!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target)
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  //@ts-ignore
+  roo: null,
+  threshold: 0.15
+})
+
+allSections.forEach(function (section){
+  sectionObserver.observe(<Element>section);
+  (<Element>section).classList.add('section--hidden')
+})
