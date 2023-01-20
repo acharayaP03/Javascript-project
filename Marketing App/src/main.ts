@@ -12,7 +12,7 @@ import {
   tabsContent,
   tabsContainer,
   nav,
-  allSections
+  allSections, allImages
 } from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
@@ -178,7 +178,6 @@ headerObserver.observe(header)
 // @ts-ignore
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entries)
   if(!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
@@ -195,3 +194,38 @@ allSections.forEach(function (section){
   sectionObserver.observe(<Element>section);
   (<Element>section).classList.add('section--hidden')
 })
+
+/**
+ * Lazy loading images with Intersection Observer API
+ */
+
+// @ts-ignore
+const loadImages = function (entries, observe){
+  const [ entry ] = entries;
+
+  if(!entry.isIntersecting) return
+
+  //Replace src with data-src
+  entry.target.src = entry.target.dataset.src
+  /**
+   * once the src is replaced,
+   * we can trigger the load event to replace the css class that blurs the previous img
+   *
+   * this trick is done by loading low quality image first then loading good quality image once user scroll image section.
+   */
+  entry.target.addEventListener('load', function (){
+    entry.target.classList.remove('lazy-img')
+  })
+
+  // stop observer
+  observe.unobserve(entry.target)
+}
+
+const imageObserver = new IntersectionObserver(loadImages, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px'
+});
+
+allImages.forEach(image => imageObserver.observe(<Element>image))
+

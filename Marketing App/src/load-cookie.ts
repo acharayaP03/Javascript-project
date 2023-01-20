@@ -18,7 +18,3 @@ export const deleteCookie = function (){
         });
 }
 
-const allButtonsWithTagName = document.getElementsByTagName('button') as HTMLCollection;
-const allButtonsWithClassName = document.getElementsByClassName('btn') as HTMLCollection
-console.log('All buttons with tag name: ',allButtonsWithTagName);
-console.log('All buttons with Class name: ', allButtonsWithClassName)
