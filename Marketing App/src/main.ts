@@ -12,10 +12,11 @@ import {
   tabsContent,
   tabsContainer,
   nav,
-  allSections, allImages
+  allSections, allImages, buttonRight, buttonLeft
 } from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
+import {goToSlide, nextSlide, previousSlide} from "./slider";
 
 
 
@@ -192,7 +193,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section){
   sectionObserver.observe(<Element>section);
-  (<Element>section).classList.add('section--hidden')
+  // (<Element>section).classList.add('section--hidden')
 })
 
 /**
@@ -228,4 +229,13 @@ const imageObserver = new IntersectionObserver(loadImages, {
 });
 
 allImages.forEach(image => imageObserver.observe(<Element>image))
+
+
+/**
+ * Slider function starts here...
+ */
+goToSlide(0) // initialize slider..
+buttonRight.addEventListener('click', nextSlide);
+buttonLeft.addEventListener('click', previousSlide)
+
 
