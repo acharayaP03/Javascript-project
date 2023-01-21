@@ -14,3 +14,12 @@ export const tabsContent = document.querySelectorAll('.operations__content') as 
 export const nav = document.querySelector('.nav') as HTMLElement;
 export const allSections = document.querySelectorAll('.section') as NodeList;
 export const allImages = document.querySelectorAll('img[data-src]') as NodeList;
+
+/**
+ * Slider variables
+ */
+
+export const slides = document.querySelectorAll<HTMLElement>('.slide');
+export const buttonLeft = document.querySelector('.slider__btn--left') as HTMLButtonElement;
+export const buttonRight = document.querySelector('.slider__btn--right') as HTMLButtonElement;
+export const dotContainer = document.querySelector('.dots') as HTMLElement
