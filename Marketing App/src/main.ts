@@ -189,7 +189,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section){
   sectionObserver.observe(<Element>section);
-  // (<Element>section).classList.add('section--hidden')
+  (<Element>section).classList.add('section--hidden')
 })
 
 /**
