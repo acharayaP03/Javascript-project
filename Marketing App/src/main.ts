@@ -280,5 +280,22 @@ const init = function (){
   deleteCookie()
 }
 
-init()
+init();
+
+
+/**
+ * DOM LifeCycle events
+ *
+ * @type DOMContentLoaded:
+ * -- fires after the content is loaded, it skips all the js and image on the page and loads once the DOM tree is ready
+ *
+ * @type load:
+ * -- this event is attached to the window object and only fires if every thing on DOM tree is ready including images
+ *
+ * @type beforeunload:
+ * -- this event is fired when user is about the close or leave the page. for some browser, we might need to prevent event object
+ * like so e.preventDefault() and return e.returnValue to empty string.
+ */
+
+
 
