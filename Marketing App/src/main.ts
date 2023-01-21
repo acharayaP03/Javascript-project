@@ -12,14 +12,11 @@ import {
   tabsContent,
   tabsContainer,
   nav,
-  allSections, allImages, buttonRight, buttonLeft
+  allSections, allImages, buttonRight, buttonLeft, dotContainer
 } from "./variables.js";
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
-import {goToSlide, nextSlide, previousSlide} from "./slider";
-import {createLogger} from "vite";
-
-
+import {addActiveClassToDot, createDots, goToSlide, nextSlide, previousSlide} from "./slider";
 
 const openModal = function (e: Event) {
   e.preventDefault()
@@ -46,8 +43,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-displayCookie();
-deleteCookie()
 //smoothScrolling(btnScrollTo, section1)
 //smoothScrollingModernWay(btnScrollTo, section1);
 
@@ -235,7 +230,7 @@ allImages.forEach(image => imageObserver.observe(<Element>image))
 /**
  * Slider function starts here...
  */
-goToSlide(0) // initialize slider..
+
 buttonRight.addEventListener('click', nextSlide);
 buttonLeft.addEventListener('click', previousSlide)
 
@@ -252,10 +247,38 @@ document.addEventListener('keydown', function (e: KeyboardEvent){
    * if the left hand side expression of if returns truthy, then only run the right hand side:
    */
 
-  console.log('Key board event fired: ', e)
   e.key === 'ArrowRight' && nextSlide() // sort circuiting
   if(e.key === 'ArrowLeft') previousSlide() // normal way
 
 })
 
+/**
+ * Create dots for slide.
+ */
+
+
+dotContainer.addEventListener('click', function (e){
+  const target   = e.target as HTMLElement;
+  if(target.classList.contains('dots__dot')){
+    const { slide } = target.dataset;
+
+    goToSlide(Number(slide))
+  }
+})
+
+/**
+ * Initialize all function calls that is necessary at the start of page load.
+ */
+
+const init = function (){
+  goToSlide(0) // initialize slider..
+  createDots()
+  addActiveClassToDot(0) // start of page load
+
+
+  displayCookie();
+  deleteCookie()
+}
+
+init()
 

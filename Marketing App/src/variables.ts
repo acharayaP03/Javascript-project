@@ -22,3 +22,4 @@ export const allImages = document.querySelectorAll('img[data-src]') as NodeList;
 export const slides = document.querySelectorAll<HTMLElement>('.slide');
 export const buttonLeft = document.querySelector('.slider__btn--left') as HTMLButtonElement;
 export const buttonRight = document.querySelector('.slider__btn--right') as HTMLButtonElement;
+export const dotContainer = document.querySelector('.dots') as HTMLElement
