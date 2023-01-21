@@ -17,6 +17,7 @@ import {
 import {deleteCookie, displayCookie} from "./load-cookie";
 import {handleHover} from "./utils";
 import {goToSlide, nextSlide, previousSlide} from "./slider";
+import {createLogger} from "vite";
 
 
 
@@ -237,5 +238,19 @@ allImages.forEach(image => imageObserver.observe(<Element>image))
 goToSlide(0) // initialize slider..
 buttonRight.addEventListener('click', nextSlide);
 buttonLeft.addEventListener('click', previousSlide)
+
+/**
+ * Key board event
+ */
+
+document.addEventListener('keydown', function (e: KeyboardEvent){
+  /**
+   * Shorcircuting:
+   * if the left hand side expression of if returns truthy, then only run the right hand side:
+   */
+  e.key === 'ArrowRight' && nextSlide() // sort circuiting
+  if(e.key === 'ArrowLeft') previousSlide() // normal way
+
+})
 
 
