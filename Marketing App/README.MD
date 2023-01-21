@@ -22,3 +22,7 @@ npm install or yarn #to install dependencies
 ***
 - Events, event propagation and event delegation
 - DOM traversing
+- Smooth scrolling
+- Intersection Observer api to load content when user scrolls 
+- JS slider 
+- DOM Event lifecycle
