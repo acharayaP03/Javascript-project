@@ -241,6 +241,9 @@ buttonLeft.addEventListener('click', previousSlide)
 
 /**
  * Key board event
+ *
+ *
+ * bug: need to add Intersection Observer to fire this event only if the slide section is on view
  */
 
 document.addEventListener('keydown', function (e: KeyboardEvent){
@@ -248,6 +251,8 @@ document.addEventListener('keydown', function (e: KeyboardEvent){
    * Shorcircuting:
    * if the left hand side expression of if returns truthy, then only run the right hand side:
    */
+
+  console.log('Key board event fired: ', e)
   e.key === 'ArrowRight' && nextSlide() // sort circuiting
   if(e.key === 'ArrowLeft') previousSlide() // normal way
 
