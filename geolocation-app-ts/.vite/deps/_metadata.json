@@ -1,0 +1,13 @@
+{
+  "hash": "fa22bd5c",
+  "browserHash": "6d828b63",
+  "optimized": {
+    "leaflet": {
+      "src": "../../node_modules/leaflet/dist/leaflet-src.js",
+      "file": "leaflet.js",
+      "fileHash": "df2b53e7",
+      "needsInterop": true
+    }
+  },
+  "chunks": {}
+}

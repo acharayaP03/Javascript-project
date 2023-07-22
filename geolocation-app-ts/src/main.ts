@@ -23,15 +23,28 @@
 
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 'use strict';
+import 'leaflet/dist/leaflet.css';
+// @ts-ignore
+import L from 'leaflet';
+import { htmlElment } from './variables';
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      const { longitude, latitude } = position.coords;
 
-// prettier-ignore
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const map = L.map(htmlElment.map)
+        .locate({ setView: true, maxZoom: 16 })
+        .setView([longitude, latitude], 16);
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
 
+      L.marker([longitude, latitude]).addTo(map);
+    },
+    function () {
+      alert('Could not get your position...');
+    }
+  );
+}
