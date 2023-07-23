@@ -14,22 +14,33 @@ export const months = [
   'December',
 ];
 
+enum DomElements {
+    MAP = '#map',
+    FORM = '.form',
+    CONTAINERWORKOUT = '.workouts',
+    INPUTTYPE = '.form__input--type',
+    INPUTDISTANCE = '.form__input--distance',
+    INPUTDURATION = '.form__input--duration',
+    INPUTCADENCE = '.form__input--cadence',
+    INPUTELEVATION = '.form__input--elevation',
+}
+
 export const htmlElment = {
-    map: document.querySelector('#map') as HTMLDivElement,
-    form: document.querySelector('.form') as HTMLFormElement,
-    containerWorkouts: document.querySelector('.workouts'),
-    inputType: document.querySelector('.form__input--type'),
+    map: document.querySelector(DomElements.MAP) as HTMLDivElement,
+    form: document.querySelector(DomElements.FORM) as HTMLFormElement,
+    containerWorkouts: document.querySelector(DomElements.CONTAINERWORKOUT),
+    inputType: document.querySelector(DomElements.INPUTTYPE),
     inputDistance: document.querySelector(
-        '.form__input--distance'
+        DomElements.INPUTDISTANCE
     ) as HTMLInputElement,
     inputDuration: document.querySelector(
-        '.form__input--duration'
+        DomElements.INPUTDURATION
     ) as HTMLInputElement,
     inputCadence: document.querySelector(
-        '.form__input--cadence'
+        DomElements.INPUTCADENCE
     ) as HTMLInputElement,
     inputElevation: document.querySelector(
-        '.form__input--elevation'
+        DomElements.INPUTELEVATION
     ) as HTMLInputElement,
 };
 
