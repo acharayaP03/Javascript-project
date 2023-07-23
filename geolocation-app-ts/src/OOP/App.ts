@@ -98,6 +98,10 @@ export default class App {
             ?.classList.toggle('form__row--hidden');
     }
 
+    /**
+     * @Singleton an OOP design pattern where we initialize instance on class only once to reduce the cost of the memory.
+     * this can be done via static method, and cannot be called its instance straight
+     */
     static instanceOf() {
         if (!App.INSTANCE) {
             App.INSTANCE = new App();
