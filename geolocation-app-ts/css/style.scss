@@ -47,12 +47,24 @@ a:visited {
   padding: 3rem 5rem 4rem 5rem;
   display: flex;
   flex-direction: column;
+  
+  &-header {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+  }
 }
+
 
 .logo {
   height: 5.2rem;
   align-self: center;
-  margin-bottom: 4rem;
 }
 
 .workouts {
