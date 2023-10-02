@@ -1,6 +1,15 @@
 // @ts-ignore
 import L from 'leaflet';
 import { htmlElment, leafletTileOptions } from '../variables';
+import Running from './Running';
+import Cycling from './Cycling';
+
+const running = new Running([20, 36], 36, 36, 36);
+const cycling = new Cycling([20, 30], 100, 145, 45);
+
+console.log('Running: ', running);
+console.log('Cycling: ', cycling);
+
 
 export default class App {
     private static INSTANCE: App;
