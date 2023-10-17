@@ -2,6 +2,7 @@ import Workout from './Workout';
 
 export default class Running extends Workout {
     public pace!: number;
+    public type: string = 'running';
     public constructor(
         public coords: Array<any>,
         public cadence: number,

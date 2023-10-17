@@ -2,6 +2,7 @@ import Workout from './Workout';
 
 export default class Cycling extends Workout {
     public speed!: number;
+    public type: string = 'cycling';
     public constructor(
         public coords: Array<any>,
         public elevation: number,
