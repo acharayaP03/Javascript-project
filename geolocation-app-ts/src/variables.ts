@@ -29,7 +29,9 @@ export const htmlElment = {
     map: document.querySelector(DomElements.MAP) as HTMLDivElement,
     form: document.querySelector(DomElements.FORM) as HTMLFormElement,
     containerWorkouts: document.querySelector(DomElements.CONTAINERWORKOUT),
-    inputType: document.querySelector(DomElements.INPUTTYPE),
+    inputType: document.querySelector(
+        DomElements.INPUTTYPE
+    ) as HTMLInputElement,
     inputDistance: document.querySelector(
         DomElements.INPUTDISTANCE
     ) as HTMLInputElement,
